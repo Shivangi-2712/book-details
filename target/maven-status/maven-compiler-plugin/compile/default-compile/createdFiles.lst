@@ -1,4 +1,5 @@
-com\controller\CustomerInfoController.class
-com\config\BookDetailsApplication.class
-com\bean\BookInfo.class
-com\bean\CustomerBean.class
+com/controller/CustomerInfoController.class
+com/bean/CustomerBean.class
+com/config/BookDetailsApplication.class
+com/bean/BookInfo.class
+com/config/PhotoBusinessApplication.class
