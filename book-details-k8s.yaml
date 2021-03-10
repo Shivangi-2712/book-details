@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book-details-k8s-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: book-details-k8s
+  template:
+    metadata:
+      labels:
+        app: book-details-k8s
+    spec:
+      containers:
+        - name: app
+          image: shivangisharmass27/book-details-2
+          ports:
+            - containerPort: 8080
+          
+
+
