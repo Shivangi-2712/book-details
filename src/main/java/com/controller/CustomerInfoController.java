@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -30,9 +32,11 @@ JSONArray getDetails() {
 	
 	 JSONParser jsonParser = new JSONParser();
 	 JSONArray bookList=null, list=null;
-	 ClassPathResource resource = new ClassPathResource("book-info.json");
-	 
-     try (FileReader reader = new FileReader(resource.getFile()))
+	 //ClassPathResource resource = new ClassPathResource("book-info.json");
+	 InputStream inputStream = getClass().getResourceAsStream("/book-info.json");
+			   // BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+			
+     try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream)))
      {
          //Read JSON file
          Object obj = jsonParser.parse(reader);
