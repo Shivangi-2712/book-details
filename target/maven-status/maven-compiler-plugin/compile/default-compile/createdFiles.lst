@@ -1,0 +1,4 @@
+com\controller\CustomerInfoController.class
+com\config\PhotoBusinessApplication.class
+com\bean\BookInfo.class
+com\bean\CustomerBean.class
