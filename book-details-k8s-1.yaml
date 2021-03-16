@@ -18,5 +18,16 @@ spec:
           ports:
             - containerPort: 8080
           
-
+----
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-1
+spec:
+  selector:
+    app: book-details-k8s
+  ports:
+    - port: 8080
+      targetPort: 8081
+  type: LoadBalancer
 
