@@ -1,16 +1,23 @@
 name: Docker Image CI
 
 on:
-  workflow_dispatch: # Allows manual trigger
-
+  workflow_dispatch: # manual trigger only
 
 jobs:
   build:
-    # Only run if triggered by approval or manually AND PR is approved
-
     runs-on: ubuntu-latest
 
+    # Use environment with required reviewers
+    environment: dev
+
+    env:
+      IMAGE_NAME: my-image-name
+
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - uses: actions/checkout@v4
+
+      - name: Build the Docker image
+        run: |
+          docker build . \
+            --file Dockerfile \
+            --tag $IMAGE_NAME:${{ github.run_id }}
