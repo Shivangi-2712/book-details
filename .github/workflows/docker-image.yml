@@ -1,15 +1,17 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+  workflow_dispatch: # Allows manual trigger
+  pull_request_review:
+    types: [submitted]
 
 jobs:
-
   build:
-
+    # Only run if triggered by approval or manually AND PR is approved
+    if: |
+      (github.event_name == 'pull_request_review' && github.event.review.state == 'approved') ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.pr_number != '' && 
+       github.event.inputs.pr_approved == 'true')
     runs-on: ubuntu-latest
 
     steps:
