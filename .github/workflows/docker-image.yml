@@ -15,7 +15,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # Use the chosen environment dynamically
+    # Dynamically select the environment (GitHub Environments from repo settings)
     environment: ${{ github.event.inputs.target_env }}
 
     env:
@@ -24,14 +24,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set TEST_ENV
-        run: echo "TEST_ENV=${{ github.event.inputs.target_env }}" >> $GITHUB_ENV
-
-      - name: Print env-specific variable
+      - name: Print TEST_ENV
         run: echo "TEST_ENV is $TEST_ENV"
-
-      - name: Build the Docker image
-        run: |
-          docker build . \
-            --file Dockerfile \
-            --tag $IMAGE_NAME:${{ github.run_id }}
