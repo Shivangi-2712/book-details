@@ -9,20 +9,31 @@ on:
         type: choice
         options:
           - dev
+          - staging
           - prod
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    # Dynamically select the environment (GitHub Environments from repo settings)
+    # Dynamically select environment (with its own secrets/vars & approvals)
     environment: ${{ github.event.inputs.target_env }}
 
     env:
       IMAGE_NAME: my-image-name
+      TEST_ENV: ${{ vars.TEST_ENV }}   # variable defined in each env
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Print TEST_ENV
+      - name: Print selected environment
+        run: echo "Selected env: ${{ github.event.inputs.target_env }}"
+
+      - name: Print TEST_ENV variable
         run: echo "TEST_ENV is $TEST_ENV"
+
+      - name: Build the Docker image
+        run: |
+          docker build . \
+            --file Dockerfile \
+            --tag $IMAGE_NAME:${{ github.event.inputs.target_env }}-${{ github.run_id }}
