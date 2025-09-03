@@ -14,7 +14,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     environment: ${{ github.event.inputs.target_env }}
 
     env:
@@ -23,8 +22,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Print selected environment
-        run: echo "Selected env: ${{ github.event.inputs.target_env }}"
-
-      - name: Print TEST_ENV
+      - name: Print TEST_ENV from environment
         run: echo "TEST_ENV is ${{ vars.TEST_ENV }}"
